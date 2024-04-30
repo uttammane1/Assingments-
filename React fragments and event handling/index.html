@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React Component</title>
     <style>
+        /* CSS styles for the component */
         body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -43,16 +45,21 @@
     </style>
 </head>
 <body>
+  <!-- Container for React rendering -->
   <div id="root"></div>
+  <!-- React and Babel scripts -->
   <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
+    // React component
     const App = () => {
+      // Function button click
       const handleAlert = () => {
-        alert('Hello');
+        alert('Hello'); // Displays an alert 'Hello' message
       };
 
+      // JSX structure
       return (
         <div className="container">
           <p>Click the below button to alert 'Hello'</p>
@@ -61,6 +68,7 @@
       );
     };
   
+    // Render the App component
     ReactDOM.render(<App />, document.getElementById('root'));
   </script>
 </body>
