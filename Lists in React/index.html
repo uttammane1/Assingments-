@@ -11,39 +11,31 @@
     <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
-      // ItemList definition
-      function ItemList({ items }) {
-        return (
-          <div>
-            {}
-            {items.length > 0 ? (
-              <ul>
-                {/* Mapping items array to render */}
-                {items.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>No items found</p>
-            )}
-          </div>
+      // Your ItemList component code will go here
+      let items=[
+      "Apple", "Banana", "Cherry"
+      ];
+    function ItemList({items}){
+        
+          if(items.length===0){
+           return  <p>No Items Found</p>
+          }
+        
+  
+    
+        return(
+            <div>
+            {items.map((element) => {
+              return <ul>
+                      <li items = {items}>{element} </li>
+                      </ul>
+            })}
+            </div>
         );
-      }
-  
-      // Test arrays for ItemList 
-      const itemsArray = ["Apple", "Banana", "Cherry"];
-      const emptyArray = []; 
-  
-      // Rendering ItemList different arrays 
-      ReactDOM.render(
-        <div>
-          <h2>With Items:</h2>
-          <ItemList items={itemsArray} />
-          <h2>Empty Array:</h2>
-          <ItemList items={emptyArray} />
-        </div>,
-        document.getElementById('root')
-      );
-    </script>
+    }
+        // Rendering the element in a React application
+        const reactRoot = ReactDOM.createRoot(document.getElementById("root"));
+        reactRoot.render(<ItemList items = {items}/>);
+  </script>
 </body>
 </html>
