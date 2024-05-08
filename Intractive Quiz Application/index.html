@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <style>
+         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .score {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 24px;
+        }
+
+        .restart-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function Quiz() {
+      const [questions, setQuestions] = React.useState([
+        {
+          id: 1,
+          question: "1 : What is the capital of France?",
+          options: ["Paris", "London", "Berlin", "Madrid"],
+          correctAnswer: "Paris",
+          selectedAnswer: null,
+        },
+        {
+          id: 2,
+          question: "2 : Which river is the longest in the world?",
+          options: ["Nile", "Amazon", "Yangtze", "Mississippi"],
+          correctAnswer: "Nile",
+          selectedAnswer: null,
+        },
+        {
+          id: 3,
+          question: "3 : What is the largest continent by land area?",
+          options: ["Africa", "Asia", "North America", "Europe"],
+          correctAnswer: "Asia",
+          selectedAnswer: null,
+        },
+        {
+          id: 4,
+          question: "4 : Which ocean is the largest?",
+          options: ["Atlantic", "Pacific", "Indian", "Arctic"],
+          correctAnswer: "Pacific",
+          selectedAnswer: null,
+        },
+        {
+          id: 5,
+          question: "5 : What is the highest mountain in the world?",
+          options: ["Mount Everest", "K2", "Kangchenjunga", "Lhotse"],
+          correctAnswer: "Mount Everest",
+          selectedAnswer: null,
+        },
+        {
+          id: 6,
+          question: "6 : Which country is known as the Land of the Rising Sun?",
+          options: ["Japan", "China", "Korea", "Vietnam"],
+          correctAnswer: "Japan",
+          selectedAnswer: null,
+        },
+        {
+          id: 7,
+          question: "7 : Which desert is the largest in the world?",
+          options: ["Sahara", "Arabian", "Gobi", "Antarctic"],
+          correctAnswer: "Sahara",
+          selectedAnswer: null,
+        },
+        {
+          id: 8,
+          question: "8 : What is the smallest country in the world?",
+          options: ["Monaco", "Vatican City", "Nauru", "Tuvalu"],
+          correctAnswer: "Vatican City",
+          selectedAnswer: null,
+        },
+        {
+          id: 9,
+          question: "9 : Which river flows through the Grand Canyon?",
+          options: ["Missouri", "Colorado", "Nile", "Amazon"],
+          correctAnswer: "Colorado",
+          selectedAnswer: null,
+        },
+        {
+          id: 10,
+          question: "10 : Which is the largest lake in Africa?",
+          options: ["Victoria", "Tanganyika", "Malawi", "Albert"],
+          correctAnswer: "Victoria",
+          selectedAnswer: null,
+        },
+        {
+          id: 11,
+          question: "11 : Where is the Great Barrier Reef located?",
+          options: ["Australia", "Hawaii", "Philippines", "Maldives"],
+          correctAnswer: "Australia",
+          selectedAnswer: null,
+        },
+        {
+          id: 12,
+          question: "12 : Which is the largest island in the world?",
+          options: ["Greenland", "Australia", "Borneo", "Madagascar"],
+          correctAnswer: "Greenland",
+          selectedAnswer: null,
+        },
+        {
+          id: 13,
+          question: "13 : Which ocean is the warmest?",
+          options: ["Indian", "Pacific", "Atlantic", "Southern"],
+          correctAnswer: "Indian",
+          selectedAnswer: null,
+        },
+        {
+          id: 14,
+          question: "14 : What is the longest river in South America?",
+          options: ["Amazon", "Parana", "Orinoco", "Magdalena"],
+          correctAnswer: "Amazon",
+          selectedAnswer: null,
+        },
+        {
+          id: 15,
+          question: "15 : Which city is known as the City of Love?",
+          options: ["Paris", "Rome", "Venice", "Prague"],
+          correctAnswer: "Paris",
+          selectedAnswer: null,
+        },
+        {
+          id: 16,
+          question: "16 : Which country is famous for the Northern Lights?",
+          options: ["Norway", "Canada", "Sweden", "Iceland"],
+          correctAnswer: "Norway",
+          selectedAnswer: null,
+        },
+        {
+          id: 17,
+          question: "17 : What is the driest place on Earth?",
+          options: ["Atacama Desert", "Sahara Desert", "Death Valley", "Antarctica"],
+          correctAnswer: "Atacama Desert",
+          selectedAnswer: null,
+        },
+        {
+          id: 18,
+          question: "18 : Which is the largest country by land area?",
+          options: ["Russia", "Canada", "China", "United States"],
+          correctAnswer: "Russia",
+          selectedAnswer: null,
+        },
+        {
+          id: 19,
+          question: "19 : What is the currency of Japan?",
+          options: ["Yuan", "Yen", "Rupee", "Dollar"],
+          correctAnswer: "Yen",
+          selectedAnswer: null,
+        },
+        {
+          id: 20,
+          question: "20 : Which sea separates Africa from Europe?",
+          options: ["Mediterranean", "Black", "Red", "Caspian"],
+          correctAnswer: "Mediterranean",
+          selectedAnswer: null,
+        },
+      ]);
+      const [score, setScore] = React.useState(0);
+      const [showScore, setShowScore] = React.useState(false);
+
+      const handleAnswerClick = (questionId, selectedOption) => {
+        const updatedQuestions = questions.map((q) =>
+          q.id === questionId ? { ...q, selectedAnswer: selectedOption } : q
+        );
+        setQuestions(updatedQuestions);
+      };
+
+      const handleSubmit = () => {
+        const newScore = questions.reduce(
+          (totalScore, question) =>
+            question.selectedAnswer === question.correctAnswer
+              ? totalScore + 1
+              : totalScore,
+          0
+        );
+        setScore(newScore);
+        setShowScore(true);
+      };
+
+      const handleRestart = () => {
+        setQuestions(
+          questions.map((q) => ({ ...q, selectedAnswer: null }))
+        );
+        setScore(0);
+        setShowScore(false);
+      };
+
+      return (
+        <div>
+          {!showScore ? (
+            <div>
+              {questions.map((question) => (
+                <div key={question.id}>
+                  <h3>{question.question}</h3>
+                  {question.options.map((option) => (
+                    <label key={option}>
+                      <input
+                        type="radio"
+                        name={`question_${question.id}`}
+                        value={option}
+                        onChange={() =>
+                          handleAnswerClick(question.id, option)
+                        }
+                        checked={question.selectedAnswer === option}
+                      />
+                      {option}
+                    </label>
+                  ))}
+                </div>
+              ))}
+              <button onClick={handleSubmit}>Submit</button>
+            </div>
+          ) : (
+            <div>
+              <h2>Your Score: {score}</h2>
+              <button onClick={handleRestart}>Restart Quiz</button>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.render(<Quiz />, document.getElementById("root"));
+  </script>
+</html>

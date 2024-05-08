@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    input[type="text"] {
+      width: calc(100% - 40px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    .task {
+      flex-grow: 1;
+      margin-left: 10px;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+    .filter-btns {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .filter-btn {
+      padding: 5px 10px;
+      margin: 0 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .filter-btn.active {
+      background-color: #007bff;
+      color: #fff;
+      border-color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" class="container"></div>
+  <script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+
+    function TodoApp() {
+      const [tasks, setTasks] = useState([]);
+      const [filter, setFilter] = useState('All');
+
+      const handleAddTask = (task) => {
+        setTasks([...tasks, { id: Date.now(), task, completed: false }]);
+      };
+
+      const handleToggleTask = (taskId) => {
+        setTasks(
+          tasks.map((task) =>
+            task.id === taskId ? { ...task, completed: !task.completed } : task
+          )
+        );
+      };
+
+      const handleRemoveTask = (taskId) => {
+        setTasks(tasks.filter((task) => task.id !== taskId));
+      };
+
+      const filteredTasks = tasks.filter((task) => {
+        if (filter === 'All') return true;
+        if (filter === 'Active') return !task.completed;
+        if (filter === 'Completed') return task.completed;
+      });
+
+      return (
+        <div>
+          <h1>Todo List</h1>
+          <input type="text" placeholder="Add task..." onKeyDown={(e) => e.key === 'Enter' && handleAddTask(e.target.value)} />
+          <ul>
+            {filteredTasks.map((task) => (
+              <li key={task.id} className={task.completed ? 'completed' : ''}>
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => handleToggleTask(task.id)}
+                />
+                <span className="task">{task.task}</span>
+                <button onClick={() => handleRemoveTask(task.id)}>Remove</button>
+              </li>
+            ))}
+          </ul>
+          <div className="filter-btns">
+            <button className={`filter-btn ${filter === 'All' ? 'active' : ''}`} onClick={() => setFilter('All')}>All</button>
+            <button className={`filter-btn ${filter === 'Active' ? 'active' : ''}`} onClick={() => setFilter('Active')}>Active</button>
+            <button className={`filter-btn ${filter === 'Completed' ? 'active' : ''}`} onClick={() => setFilter('Completed')}>Completed</button>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<TodoApp />, document.getElementById('root'));
+  </script>
+</body>
+</html>

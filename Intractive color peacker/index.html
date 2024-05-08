@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Picker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f2f2f2;
+    }
+
+    .colorPickerContainer {
+      text-align: center;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .colorBox {
+      width: 100px;
+      height: 100px;
+      margin-top: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .errorText {
+      color: red;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    class ColorPicker extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          color: "gray", 
+          error: "", 
+        };
+      }
+
+      handleChange = (event) => {
+        const colorValue = event.target.value;
+        if (/^#[0-9A-F]{6}$/i.test(colorValue)) {
+          this.setState({ color: colorValue, error: "" });
+        } else {
+          this.setState({ error: "Invalid HEX color code" });
+        }
+      };
+
+      render() {
+        return (
+          <div className="colorPickerContainer">
+            <input
+              type="text"
+              value={this.state.color}
+              onChange={this.handleChange}
+              placeholder="Enter color (HEX format)"
+            />
+            <div
+              className="colorBox"
+              style={{
+                backgroundColor: this.state.color,
+              }}
+            ></div>
+            {this.state.error && (
+              <p className="errorText">
+                {this.state.error}
+              </p>
+            )}
+          </div>
+        );
+      }
+    }
+
+    ReactDOM.render(<ColorPicker />, document.getElementById("root"));
+  </script>
+</body>
+</html>

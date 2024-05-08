@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dynamic Form with React</title>
+  <style>
+     body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      max-width: 400px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-container input {
+      margin-bottom: 10px;
+      padding: 8px;
+      border: 1px solid red;
+      border-radius: 3px;
+    }
+
+    .form-container button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const App = () => {
+      const [hobbies, setHobbies] = useState(['']);
+
+      const renderInputFields = () => {
+        return hobbies.map((hobby, index) => (
+          <div key={index}>
+            <input
+              type="text"
+              value={hobby}
+              onChange={(e) => handleInputChange(e, index)}
+            />
+            {index > 0 && (
+              <button type="button" onClick={() => handleRemoveField(index)}>
+                Remove
+              </button>
+            )}
+          </div>
+        ));
+      };
+
+      const handleInputChange = (e, index) => {
+        const newHobbies = [...hobbies];
+        newHobbies[index] = e.target.value;
+        setHobbies(newHobbies);
+      };
+
+      const handleAddField = () => {
+        setHobbies([...hobbies, '']);
+      };
+
+      const handleRemoveField = (indexToRemove) => {
+        setHobbies(hobbies.filter((_, index) => index !== indexToRemove));
+      };
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(hobbies);
+      };
+
+      return (
+        <form onSubmit={handleSubmit}>
+          {renderInputFields()}
+          <button type="button" onClick={handleAddField}>
+            Add Hobby
+          </button>
+          <button type="submit">Submit</button>
+        </form>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
