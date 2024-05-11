@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profiles</title>
+    <style>
+      .app {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      .search-input {
+        margin-bottom: 10px;
+        padding: 5px;
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      .user-profile {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      .user-profile img {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const UserProfile = ({ user }) => (
+        <div className="user-profile">
+          <img src={user.avatar} alt={user.name} />
+          <h3>{user.name}</h3>
+          <p>{user.email}</p>
+        </div>
+      );
+
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            users: [
+              { id: 1, name: 'John Doe', email: 'john.doe@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 2, name: 'Jane Smith', email: 'jane.smith@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 3, name: 'Alice Johnson', email: 'alice.johnson@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 4, name: 'Bob Anderson', email: 'bob.anderson@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 5, name: 'Emma White', email: 'emma.white@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 6, name: 'James Brown', email: 'james.brown@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 7, name: 'Olivia Taylor', email: 'olivia.taylor@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 8, name: 'David Wilson', email: 'david.wilson@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 9, name: 'Sophia Martinez', email: 'sophia.martinez@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 10, name: 'Daniel Thomas', email: 'daniel.thomas@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 11, name: 'Isabella Garcia', email: 'isabella.garcia@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 12, name: 'Michael Young', email: 'michael.young@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 13, name: 'Emily Hernandez', email: 'emily.hernandez@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 14, name: 'Matthew King', email: 'matthew.king@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 15, name: 'Amelia Adams', email: 'amelia.adams@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 16, name: 'Ethan Scott', email: 'ethan.scott@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 17, name: 'Mia Rivera', email: 'mia.rivera@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 18, name: 'Alexander Mitchell', email: 'alexander.mitchell@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 19, name: 'Charlotte Carter', email: 'charlotte.carter@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+              { id: 20, name: 'Benjamin Perez', email: 'benjamin.perez@gmail.com', avatar: 'https://i.pinimg.com/736x/d9/e1/04/d9e104948243f0f6551498112da0872a.jpg' },
+            
+            ],
+            searchQuery: '',
+          };
+        }
+
+        handleSearch = (event) => {
+          this.setState({ searchQuery: event.target.value });
+        };
+
+        render() {
+          const { users, searchQuery } = this.state;
+          const filteredUsers = users.filter(user =>
+            user.name.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+
+          return (
+            <div className="app">
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Search by name..."
+                value={searchQuery}
+                onChange={this.handleSearch}
+              />
+              <div className="user-list">
+                {filteredUsers.map(user => (
+                  <UserProfile key={user.id} user={user} />
+                ))}
+              </div>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+  </body>
+</html>

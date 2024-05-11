@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greeting Card Display</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .app {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .greeting-card {
+      width: 200px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+
+    .greeting-card h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .greeting-card p {
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const GreetingCard = ({ greeting, name }) => {
+      return (
+        <div className="greeting-card">
+          <h2>{greeting}</h2>
+          <p>{name}</p>
+        </div>
+      );
+    };
+
+    const App = () => {
+      const greetingCards = [
+        { id: 1, greeting: 'Happy Birthday', name: 'John Doe' },
+        { id: 2, greeting: 'Congratulations', name: 'Jane Smith' },
+        { id: 3, greeting: 'Welcome', name: 'Alice' }
+      ];
+
+      return (
+        <div className="app">
+          {greetingCards.map(card => (
+            <GreetingCard key={card.id} greeting={card.greeting} name={card.name} />
+          ))}
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>

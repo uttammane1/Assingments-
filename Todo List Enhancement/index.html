@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const ToDoList = () => {
+        const [items, setItems] = React.useState([]);
+        const [inputValue, setInputValue] = React.useState('');
+
+        const handleInputChange = (e) => {
+          setInputValue(e.target.value);
+        };
+
+        const handleFormSubmit = (e) => {
+          e.preventDefault();
+          if (inputValue.trim() !== '') {
+            setItems([...items, { id: Date.now(), text: inputValue, completed: false }]);
+            setInputValue('');
+          }
+        };
+
+        const handleDeleteItem = (id) => {
+          setItems(items.filter((item) => item.id !== id));
+        };
+
+        const handleToggleComplete = (id) => {
+          setItems(
+            items.map((item) =>
+              item.id === id ? { ...item, completed: !item.completed } : item
+            )
+          );
+        };
+
+        return (
+          <div>
+            <h1>To Do List</h1>
+            <form onSubmit={handleFormSubmit}>
+              <input type="text" value={inputValue} onChange={handleInputChange} />
+              <button type="submit">Add</button>
+            </form>
+            <ul>
+              {items.map((item) => (
+                <li key={item.id} className={`todo-item ${item.completed ? 'completed' : ''}`}>
+                  <input
+                    type="checkbox"
+                    checked={item.completed}
+                    onChange={() => handleToggleComplete(item.id)}
+                  />
+                  <span>{item.text}</span>
+                  <button onClick={() => handleDeleteItem(item.id)}>Delete</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      };
+
+      ReactDOM.render(<ToDoList />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
