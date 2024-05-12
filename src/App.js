@@ -1,33 +1,56 @@
-import React, {useState, useEffect} from 'react'
+import './App.css';
+import React,{useState, useEffect} from 'react';
+function App() {
+  const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1); // Pagination state
 
-function Timer() {
-  const [count, setCount] = useState(50);
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCount((prevCount) => {
-        if (prevCount === 1) {
-          clearInterval(intervalId);
-          return prevCount - 1;
-        }
-        return prevCount - 1;
-      });
-    }, 1000);
+    const fetchPosts = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}`
+        );
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-     function cleanupFunction(){
-      console.log('cleanup function called');
-      clearInterval(intervalId);
-     }
-     return cleanupFunction;
-  }, []);
+    fetchPosts();
+  }, [page]); // Effect depends on page
 
   return (
-    <div style={{border: "1px dashed black",
-      padding: "10px"}}>
-      <h1>Count Down Timer</h1>
-      <h4>{count}</h4>
-    </div>
+    <>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <div>
+            {posts.map((post) => (
+              <div key={post.id}>
+                <h3>{post.title}</h3>
+                <p>{post.body}</p>
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 1))}
+          >
+            Previous
+          </button>
+          <button onClick={() => setPage((prevPage) => prevPage + 1)}>
+            Next
+          </button>
+        </>
+      )}
+    </>
   );
 }
 
-// export default App;
-export default Timer ;
+
+export default App;
