@@ -1,81 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Task Manager</title>
-</head>
-<body>
-  <div id="root"></div>
-  <script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/babel">
-    const App = () => {
-      const [tasks, setTasks] = React.useState([]);
-      const [newTask, setNewTask] = React.useState({ title: '', isCompleted: false, assignee: '' });
-
-      const fetchTasks = async () => {
-        try {
-          const response = await axios.get('http://localhost:3000/todos');
-          setTasks(response.data);
-        } catch (error) {
-          console.error('Error fetching tasks:', error);
+    // Your  code will go here
+    function Todo(){
+        const [inputValue, setInputValue] = React.useState("")
+        function handleAddTodo(){
+            console.log(inputValue);
+            let body = {name: inputValue, status: false}
+            axios.post("http://localhost:8080/todos", body).then(()=>console.log("success")).catch(()=>console.log("failure"));
+            axios.get
         }
-      };
-
-      React.useEffect(() => {
-        fetchTasks();
-      }, []);
-
-      const addTask = async () => {
-        try {
-          await axios.post('http://localhost:3000/todos', newTask);
-          fetchTasks();
-          setNewTask({ title: '', isCompleted: false, assignee: '' });
-        } catch (error) {
-          console.error('Error adding task:', error);
-        }
-      };
-
-      const deleteTask = async (id) => {
-        try {
-          await axios.delete(`http://localhost:3000/todos/${id}`);
-          fetchTasks();
-        } catch (error) {
-          console.error('Error deleting task:', error);
-        }
-      };
-
-      return (
-        <div>
-          <h1>Task Manager</h1>
-          <div>
-            <label>Title:</label>
-            <input type="text" value={newTask.title} onChange={(e) => setNewTask({ ...newTask, title: e.target.value })} />
-          </div>
-          <div>
-            <label>Assignee:</label>
-            <input type="text" value={newTask.assignee} onChange={(e) => setNewTask({ ...newTask, assignee: e.target.value })} />
-          </div>
-          <div>
-            <button onClick={addTask}>Add Task</button>
-          </div>
-          <h2>All Tasks</h2>
-          <ul>
-            {tasks.map(task => (
-              <li key={task.id}>
-                <span>{task.title} - {task.assignee} - {task.isCompleted ? 'Completed' : 'Incomplete'}</span>
-                <button onClick={() => deleteTask(task.id)}>Delete</button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
-    };
-
-    ReactDOM.render(<App />, document.getElementById('root'));
+        return(
+            <div>
+                <input type="text" onChange={(e)=>setInputValue(e.target.value )} value = {inputValue}    />
+                <button onClick= {handleAddTodo}>Add Todo</button>
+                
+                </div>
+        )
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(< Todo />);
   </script>
-</body>
 </html>
