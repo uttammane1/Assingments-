@@ -1,0 +1,14 @@
+.card {
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+  background-color: beige;
+}
+
+.container {
+  background-color: bisque;
+  border: 1px dashed black;
+  width: 80%;
+  margin: auto;
+  padding: 10px;
+}
