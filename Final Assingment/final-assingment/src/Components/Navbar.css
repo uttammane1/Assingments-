@@ -1,0 +1,18 @@
+a{
+    text-decoration: none;
+    padding: 10px;
+     
+    gap: 40px;
+}
+a.active{
+    color: red;
+    padding: 10px;
+}
+body{
+    display: flex;
+    justify-content: space-between;
+}
+button{
+    background-color: black;
+    color: red;
+}

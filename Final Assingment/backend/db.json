@@ -1,0 +1,92 @@
+{
+    "tickets": [
+      {
+        "id": 1,
+        "title": "Navbar Feature - Logout",
+        "description": "Build a logout button within navbar",
+        "assignee": "Rahul",
+        "status": "pending",
+        "priority": 0
+      },
+      {
+        "title": "Implement Light Mode",
+        "description": "Add light mode feature to the application",
+        "assignee": "sakshi",
+        "status": "completed",
+        "priority": 6,
+        "id": 2
+      },
+      {
+        "id": 5,
+        "title": "Design Landing Page",
+        "description": "Create a new design for the landing page",
+        "assignee": "Saharan",
+        "status": "progress",
+        "priority": 7
+      },
+      {
+        "id": 6,
+        "title": "Add Unit Tests",
+        "description": "Write unit tests for the user authentication module",
+        "assignee": "Rahul",
+        "status": "completed",
+        "priority": 1
+      },
+      {
+        "id": 7,
+        "title": "Implement Push Notifications",
+        "description": "Add push notification support for new messages",
+        "assignee": "Sakshi",
+        "status": "pending",
+        "priority": 4
+      },
+      {
+        "id": 8,
+        "title": "Improve Mobile Responsiveness",
+        "description": "Ensure the app works well on mobile devices",
+        "assignee": "Abdul",
+        "status": "progress",
+        "priority": 6
+      },
+      {
+        "id": 9,
+        "title": "Setup Continuous Integration",
+        "description": "Implement CI pipeline for automated testing",
+        "assignee": "Varun",
+        "status": "completed",
+        "priority": 8
+      },
+      {
+        "id": 10,
+        "title": "Refactor Codebase",
+        "description": "Refactor the codebase to improve maintainability",
+        "assignee": "Saharan",
+        "status": "pending",
+        "priority": 9
+      },
+      {
+        "title": "Create Footer Logo",
+        "description": "Create company logo on footer",
+        "assignee": "varun",
+        "status": "pending",
+        "priority": 2,
+        "id": 11
+      },
+      {
+        "title": "Navbar Logo",
+        "description": "Create nab=vbar logo",
+        "assignee": "abdul",
+        "status": "pending",
+        "priority": 7,
+        "id": 12
+      },
+      {
+        "title": "Creatinf new ticket",
+        "description": "Sample for creating new ticket",
+        "assignee": "sakshi",
+        "status": "progress",
+        "priority": 0,
+        "id": 13
+      }
+    ]
+  }
